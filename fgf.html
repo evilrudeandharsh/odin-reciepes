@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>GET</h1>
+    
+</body>
+<script>
+    let humanwins=0;
+    let computerwins=0;
+    function getRandomInt(max) {
+        return Math.floor(Math.random() * max);
+}
+    function playround(humanchoice,computerchoice){
+        if(humanchoice==1){
+            if(computerchoice==1){
+                console.log('draw');
+            }
+            else if(computerchoice==2){
+                console.log('HUMAN LOST');
+                computerwins++;
+            }
+            else{
+                console.log('HUMAN WON');
+                humanwins++;
+            }
+        
+        }
+        else if(humanchoice==2){
+            if(computerchoice==2){
+                console.log('draw');
+            }
+            else if(computerchoice==3){
+                console.log('HUMAN LOST');
+                computerwins++;
+            }
+            else{
+                console.log('HUMAN WON');
+                humanwins++;
+            }
+        }
+        else{
+            if(computerchoice==3){
+                console.log('draw');
+            }
+            else if(computerchoice==1){
+                console.log('HUMAN LOST');
+                computerwins++;
+            }
+            else {
+                console.log('HUMAN WON');
+                humanchoice++;
+            }
+        }
+
+    }
+    
+    for (let i = 0; i < 5; i++) {
+        const userInput = prompt("Please enter something:rock :1 paper:2 scissor :3");
+        playround(userInput,getRandomInt(3))
+    }
+    console.log(humanwins,computerwins);
+
+
+    
+</script>
+</html>
