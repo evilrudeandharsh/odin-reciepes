@@ -6,15 +6,21 @@
     <title>Document</title>
 </head>
 <body>
-    <h1>GET</h1>
-    
+    <h2>Scores:</h2>
+    <p>Human Wins: <span id="human-score">0</span></p>
+    <p>Computer Wins: <span id="computer-score">0</span></p>
+    <button id="rock">rock</button>
+    <button id="scissor">scissor</button>
+    <button id="paper">paper</button>
+
 </body>
 <script>
     let humanwins=0;
     let computerwins=0;
     function getRandomInt(max) {
         return Math.floor(Math.random() * max);
-}
+    }
+    
     function playround(humanchoice,computerchoice){
         if(humanchoice==1){
             if(computerchoice==1){
@@ -53,17 +59,27 @@
             }
             else {
                 console.log('HUMAN WON');
-                humanchoice++;
+                humanwins++;
             }
         }
+        document.getElementById('human-score').innerText = humanwins;
+        document.getElementById('computer-score').innerText = computerwins;
 
     }
     
-    for (let i = 0; i < 5; i++) {
-        const userInput = prompt("Please enter something:rock :1 paper:2 scissor :3");
-        playround(userInput,getRandomInt(3))
-    }
-    console.log(humanwins,computerwins);
+    document.getElementById("rock").addEventListener("click", function() {
+        playround(1, getRandomInt(3));
+    });
+
+    document.getElementById("scissor").addEventListener("click", function() {
+        playround(3, getRandomInt(3));
+    });
+
+    document.getElementById("paper").addEventListener("click", function() {
+        playround(2, getRandomInt(3));
+    });
+    
+    
 
 
     
