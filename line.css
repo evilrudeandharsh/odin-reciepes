@@ -1,0 +1,43 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f0f0f0;
+}
+
+#grid-container {
+    display: flex;
+    flex-wrap: wrap;
+    width: 430px; /* Adjust the size as needed */
+    
+}
+
+.box {
+    display: flex;
+    width: 25px; /* 400px / 16 */
+    height: 25px; /* Adjust size to keep it square */
+    background-color: #20446a;
+    margin: 1px; /* Optional spacing */
+    border: 1px solid #fff; /* Optional border for visibility */
+    transition: background-color 0.1s;
+}
+.box:hover{
+    background-color: red;
+}
+button {
+     /* Space between grid and button */
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    background-color: black;
+}
+#butto{
+    display: flex;
+}
