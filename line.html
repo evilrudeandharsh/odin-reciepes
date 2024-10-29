@@ -19,23 +19,32 @@
         const gridContainer = document.getElementById('grid-container');
         
         document.getElementById("btn").addEventListener("click", function() {
-            document.getElementById("grid-container").innerHTML = "";
+            gridContainer.innerHTML = ""; 
 
-            const userInput = prompt("Please enter something:");
-            const v= (userInput)*27;
-            document.getElementById("grid-container").style.width = v+"px";
+            const userInput = parseInt(prompt("Please enter a number:"));
+            
+            
+            
+            
+
+        
+            
+         
             for (let i = 0; i < userInput; i++) {
-                for (let i = 0; i < userInput; i++){
+                for (let j = 0; j < userInput; j++) {
                     const box = document.createElement('div');
                     box.className = 'box';
+                    box.style.width=480/userInput+"px";
+                    box.style.height=480/userInput+"px";
+                 
+                    box.addEventListener("mouseover", function() {
+                        box.style.backgroundColor = "black";
+                    });
+
                     gridContainer.appendChild(box);
-            }}
-            
-    }
-        )
-    // Create 256 boxes for a 16x16 grid
-        
-        
+                }
+            }
+        });
     </script>
 </body>
 

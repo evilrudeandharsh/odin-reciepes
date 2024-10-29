@@ -15,24 +15,26 @@ body {
 #grid-container {
     display: flex;
     flex-wrap: wrap;
-    /* Adjust the size as needed */
+    height: 480px;
+    width: 480px;
+    background-color: blue;
+    margin: 5px;
+   
     
 }
 
 .box {
     display: flex;
-    width: 25px; /* 400px / 16 */
-    height: 25px; /* Adjust size to keep it square */
+    
     background-color: #20446a;
-    margin: 1px; /* Optional spacing */
-    border: 1px solid #fff; /* Optional border for visibility */
+   
     transition: background-color 0.1s;
 }
 .box:hover{
     background-color: red;
 }
 button {
-     /* Space between grid and button */
+    
     padding: 10px 20px;
     font-size: 16px;
     cursor: pointer;
