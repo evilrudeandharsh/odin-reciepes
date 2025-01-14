@@ -4,84 +4,128 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style1.css">
 </head>
 <body>
-    <h2>Scores:</h2>
-    <p>Human Wins: <span id="human-score">0</span></p>
-    <p>Computer Wins: <span id="computer-score">0</span></p>
-    <button id="rock">rock</button>
-    <button id="scissor">scissor</button>
-    <button id="paper">paper</button>
+    <div class="main">
+        <h1 class="jersey-15-regular" style="font-size: 100px;">Tic Tac Toe</h1>
+    </div>
+    <div class="container">
+        <div class="sides">
+            <h1 class="jersey-15-regular" style="font-size: 50px;">YOU:
+            </h1>
+            <h1 class="jersey-15-regular" style="font-size: 50px;">BOT:
+            </h1>
+            
+        </div>
+        <div class="gameboard">
+            
+        </div>
+        <div class="sides">
+            <div id="winner-message"></div>
+            <button id="reset">Restart Game</button>
+        </div>
+        
+    </div>
+    
+ 
 
 </body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
-    let humanwins=0;
-    let computerwins=0;
-    function getRandomInt(max) {
-        return Math.floor(Math.random() * max);
-    }
-    
-    function playround(humanchoice,computerchoice){
-        if(humanchoice==1){
-            if(computerchoice==1){
-                console.log('draw');
-            }
-            else if(computerchoice==2){
-                console.log('HUMAN LOST');
-                computerwins++;
-            }
-            else{
-                console.log('HUMAN WON');
-                humanwins++;
-            }
-        
-        }
-        else if(humanchoice==2){
-            if(computerchoice==2){
-                console.log('draw');
-            }
-            else if(computerchoice==3){
-                console.log('HUMAN LOST');
-                computerwins++;
-            }
-            else{
-                console.log('HUMAN WON');
-                humanwins++;
-            }
-        }
-        else{
-            if(computerchoice==3){
-                console.log('draw');
-            }
-            else if(computerchoice==1){
-                console.log('HUMAN LOST');
-                computerwins++;
-            }
-            else {
-                console.log('HUMAN WON');
-                humanwins++;
-            }
-        }
-        document.getElementById('human-score').innerText = humanwins;
-        document.getElementById('computer-score').innerText = computerwins;
+    $(document).ready(function () {
+            const game = {
+                turn: "X",
+                board: ["", "", "", "", "", "", "", "", ""],
+                moves: 0,
 
-    }
-    
-    document.getElementById("rock").addEventListener("click", function() {
-        playround(1, getRandomInt(3));
-    });
+                init: function () {
+                    this.renderBoard();
+                    this.addEventListeners();
+                },
 
-    document.getElementById("scissor").addEventListener("click", function() {
-        playround(3, getRandomInt(3));
-    });
+                renderBoard: function () {
+                    const gameboard = $(".gameboard");
+                    gameboard.empty(); // Clear the board
+                    for (let i = 0; i < 9; i++) {
+                        gameboard.append(`<div class="grid-item" data-index="${i}"></div>`);
+                    }
+                },
 
-    document.getElementById("paper").addEventListener("click", function() {
-        playround(2, getRandomInt(3));
-    });
-    
-    
+                addEventListeners: function () {
+                    const self = this;
 
+                    
+                    $(".gameboard").on("click", ".grid-item", function () {
+                        
+       
+                        const index = $(this).data("index");
 
-    
+                        // Check if the cell is already taken
+                        if (self.board[index] !== "") return;
+
+                        // Mark the cell with the current player's symbol
+                        self.board[index] = self.turn;
+                        $(this).html(`<div class="grid-${self.turn}">${self.turn}</div>`);
+                        $(this).addClass("grid-taken");
+
+                        self.moves++;
+
+                        // Check for a winner
+                        if (self.checkWinner()) {
+                            $("#winner-message").text(`Player ${self.turn} wins!`);
+                            $(".grid-item").addClass("grid-taken"); // Lock the board
+                        } 
+                        else if (self.moves === 9) {
+                            $("#winner-message").text("It's a draw!");
+
+                        } 
+                        else {
+                            // Switch turns                                            
+                            self.turn = self.turn === "X" ? "O" : "X";
+
+                        }
+                    });
+                
+                    
+                    $("#reset").on("click", function () {
+                        self.resetGame();
+                    });
+                },
+
+                checkWinner: function () {
+                    const winningCombos = [
+                        [0, 1, 2],
+                        [3, 4, 5],
+                        [6, 7, 8],
+                        [0, 3, 6],
+                        [1, 4, 7],
+                        [2, 5, 8],
+                        [0, 4, 8],
+                        [2, 4, 6],
+                                          ]  ;
+
+                    return winningCombos.some((combo) => {
+                        const [a, b, c] = combo;
+                        return (
+                            this.board[a] &&
+                            this.board[a] == this.board[b] &&
+                            this.board[a] == this.board[c]
+
+                        );
+                    });
+                },
+
+                resetGame: function () {
+                    this.turn = "X";
+                    this.board = ["", "", "", "", "", "", "", "", ""];
+                    this.moves = 0;
+                    $("#winner-message").text("");
+                    this.renderBoard();
+                },
+            };
+
+            game.init();
+        });
 </script>
 </html>

@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Aesthetic Website</title>
+  <link rel="stylesheet" href="styler.css">
+</head>
+<body>
+    <header>
+    <div class="logo">Aesthetic<span>Web</span></div>
+    <nav>
+      <ul>
+        <li><a href="#home">Home</a></li>
+        <li><a href="#about">About</a></li>
+        <li><a href="#services">Services</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ul> 
+    </nav>
+
+    </header>
+
+    <section id="home" class="hero">
+    
+    
+    <div id="library">
+        
+
+    </div>
+    </section>
+
+    
+    <div class="container">
+        <h1>Book Collection</h1>
+
+        <button id="newBookButton" class="btn">New Book</button>
+    
+  
+        <div id="bookForm" class="form-container hidden">
+          <h2>Add a New Book</h2>
+          <form id="addBookForm">
+            <label for="title">Title:</label>
+            <input type="text" id="title" name="title" required>
+    
+            <label for="author">Author:</label>
+            <input type="text" id="author" name="author" required>
+    
+            <label for="genre">Genre:</label>
+            <input type="text" id="genre" name="genre" required>
+    
+            <label for="year">Publication Year:</label>
+            <input type="number" id="year" name="year" required>
+            
+            <label for="image">Cover Image URL:</label>
+            <input type="url" id="image" name="image" required>
+
+            <button type="submit" class="btn">Add Book</button>
+            <button type="button" id="cancelButton" class="btn cancel">Cancel</button>
+          </form>
+        </div>
+    </div>
+    <section id="about">
+        <h2>About Us</h2>
+        <p>Best library in town.</p>
+    </section>
+
+    <section id="services">
+        <h2>Our Services</h2>
+        <div class="card-container">
+        <div class="card">Web Design</div>
+        <div class="card">Development</div>
+        <div class="card">SEO Optimization</div>
+        </div>
+    </section>
+
+    
+
+    <footer>
+        <p>© 2024 Library Web. All rights reserved.</p>
+    </footer>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        const newBookButton = document.getElementById('newBookButton');
+        const bookForm = document.getElementById('bookForm');
+        const cancelButton = document.getElementById('cancelButton');
+        const addBookForm = document.getElementById('addBookForm');
+        const library = document.getElementById('library');
+    
+        // Constructor function for a Book
+        function Book(title, author, genre, year, image) {
+            this.title = title;
+            this.author = author;
+            this.genre = genre;
+            this.year = year;
+            this.image = image;
+        }
+    
+        // Library array
+        const myLibrary = [];
+    
+        // Show the book form
+        newBookButton.addEventListener('click', () => {
+            bookForm.classList.remove('hidden');
+        });
+    
+        // Hide the book form
+        cancelButton.addEventListener('click', () => {
+            bookForm.classList.add('hidden');
+        });
+    
+        // Add book to library and display
+        addBookForm.addEventListener('submit', (event) => {
+            event.preventDefault();
+    
+            const title = document.getElementById('title').value;
+            const author = document.getElementById('author').value;
+            const genre = document.getElementById('genre').value;
+            const year = document.getElementById('year').value;
+            const image = document.getElementById('image').value;
+    
+            // Create a new Book object
+            const newBook = new Book(title, author, genre, year, image);
+    
+            // Add the book to the library
+            addBookToLibrary(newBook);
+    
+            // Reset the form
+            addBookForm.reset();
+            bookForm.classList.add('hidden');
+        });
+    
+        // Function to add book to the library and display in the DOM
+        function addBookToLibrary(book) {
+            myLibrary.push(book);
+    
+            const box = document.createElement('div');
+            box.className = 'box';
+            box.innerHTML = `
+                <img src="${book.image}" alt="${book.title}" class="book-cover" />
+                <h3>${book.title}</h3>
+                <p><strong>Author:</strong> ${book.author}</p>
+                <p><strong>Genre:</strong> ${book.genre}</p>
+                <p><strong>Year:</strong> ${book.year}</p>
+            `;
+            library.appendChild(box);
+        }
+    
+        // Pre-existing books
+        const book1 = new Book('The Hobbit', 'J.R.R. Tolkien', 'Fantasy', 1937, 'https://via.placeholder.com/150');
+        const book2 = new Book('Harry Potter', 'J.K. Rowling', 'Fantasy', 1997, 'https://via.placeholder.com/150');
+        addBookToLibrary(book1);
+        addBookToLibrary(book2);
+    </script>
+    
+</body>
+</html>
+ 
+
+
+
+
+    
